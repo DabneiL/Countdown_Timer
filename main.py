@@ -4,6 +4,8 @@ import pygame
 import os
 
 
+
+
 class CountdownTimer:
     def __init__(self, root):
 
@@ -11,7 +13,8 @@ class CountdownTimer:
         self.root.title("Countdown Timer by Kishnu Kumar")
         self.root.geometry("800x600")
 
-        image_path = "/home/krishna/PycharmProjects/G-project_Countdowntimer/b2.gif"
+        image_path = "C:/Users/Dabnei LeBlanc/Desktop/Code Library/Countdown_Timer/b2.gif"
+
         self.bg_image = PhotoImage(file=image_path)
         self.bg_label = tk.Label(root, image=self.bg_image)
         self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -62,10 +65,17 @@ class CountdownTimer:
                 self.is_running = True
                 self.update_timer()
 
-    def parse_time(self, time_str):
-        hours, minutes, seconds = map(int, time_str.split(":"))
-        total_seconds = hours * 3600 + minutes * 60 + seconds
-        return total_seconds
+    def parse_time(time_str):
+        try:
+            hours, minutes, seconds = map(int, time_str.split(":"))
+        except ValueError:
+            # Handle the case when the input is not in the expected format
+            print("Invalid time format. Please use 'hours:minutes:seconds' format.")
+            # You can return a default value or raise an exception here if necessary.
+            return None
+
+        return hours, minutes, seconds
+
 
     def update_timer(self):
         if self.time_left > 0 and self.is_running:
